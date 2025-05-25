@@ -13,21 +13,29 @@
       font-family: 'Press Start 2P', monospace;
       padding: 20px;
       line-height: 1.6;
+      margin: 0;
     }
 
     h1, h2, h3 {
       color: #ff0080;
-      border-bottom: 2px solid #ff0080;
+      border-bottom: 3px solid #ff0080;
       padding-bottom: 10px;
+      text-shadow: 2px 2px #000;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 24px;
+      margin-top: 0;
     }
 
     .container {
       max-width: 1000px;
-      margin: auto;
+      margin: 30px auto;
       background: #1a1a1a;
-      padding: 30px;
+      padding: 40px;
       border-radius: 15px;
-      box-shadow: 0 0 20px #00ffe1;
+      box-shadow: 0 0 25px #00ffe1, 0 0 10px #ff0080 inset;
     }
 
     ul {
@@ -39,64 +47,103 @@
       margin-bottom: 15px;
       background: #262626;
       padding: 15px;
-      border-left: 5px solid #00ffe1;
+      border-left: 6px solid #00ffe1;
       border-radius: 5px;
+      box-shadow: 0 0 10px #00ffe1;
+    }
+
+    p, li {
+      font-size: 14px;
     }
 
     .footer {
       margin-top: 40px;
       padding-top: 20px;
       border-top: 2px dashed #ff0080;
+      text-align: center;
+      font-size: 12px;
+      color: #888;
     }
 
     .tagline {
       font-size: 12px;
       color: #888;
+      text-align: center;
     }
+
+    section {
+      margin-bottom: 30px;
+    }
+
+    .highlight {
+      color: #ff0080;
+    }
+
   </style>
 </head>
 <body>
   <div class="container">
     <h1>Requerimientos del Videojuego: Arkanoid</h1>
     
-    <h2>Requerimientos Funcionales</h2>
-    <ul>
-      <li><strong>RF01:</strong> Movimiento de la plataforma con teclas o controles táctiles.</li>
-      <li><strong>RF02:</strong> Lanzamiento de la bola con una tecla (barra espaciadora).</li>
-      <li><strong>RF03:</strong> Rebote de la bola contra paredes, plataforma y bloques.</li>
-      <li><strong>RF04:</strong> Detección de colisiones y eliminación de bloques.</li>
-      <li><strong>RF05:</strong> Sistema de puntuación por bloque destruido.</li>
-      <li><strong>RF06:</strong> Mínimo 5 niveles con dificultad progresiva.</li>
-      <li><strong>RF07:</strong> Poder especial: bola invisible por 2 segundos.</li>
-      <li><strong>RF08:</strong> Poder negativo: fortalecimiento de bloques por 30 segundos.</li>
-      <li><strong>RF09:</strong> Poder de reconstrucción de bloques destruidos.</li>
-      <li><strong>RF10:</strong> Caída de ítems sorpresa (poderes positivos o negativos).</li>
-      <li><strong>RF11:</strong> Sistema de vidas limitadas.</li>
-      <li><strong>RF12:</strong> Pantallas de Game Over y Victoria.</li>
-      <li><strong>RF13:</strong> Guardado de puntuaciones en ranking local o en línea.</li>
-      <li><strong>RF14:</strong> Sonidos para rebotes, destrucción, ítems y pantallas.</li>
-    </ul>
+    <section>
+      <h2>1. Introducción</h2>
+      <p><span class="highlight">1.1 Propósito:</span> Este documento define los requerimientos funcionales y no funcionales del videojuego "Arkanoid", un juego de tipo arcade basado en romper bloques con una pelota y una plataforma controlada por el jugador.</p>
+      <p><span class="highlight">1.2 Alcance del Producto:</span> El videojuego permitirá a los jugadores interactuar mediante teclado (o controles táctiles) para mover una plataforma y rebotar una pelota. Incluirá niveles progresivos, poderes especiales, sistema de puntuación, efectos de sonido, y pantalla de Game Over/Victoria.</p>
+      <p><span class="highlight">1.3 Definiciones, Acrónimos y Abreviaturas:</span> RF: Requerimiento Funcional, RNF: Requerimiento No Funcional, ERS: Especificación de Requisitos del Software, FPS: Cuadros por segundo (Frames per Second).</p>
+      <p><span class="highlight">1.4 Referencias:</span> IEEE Std 830-1998 – Recomendado para Especificación de Requisitos de Software.</p>
+      <p><span class="highlight">1.5 Visión General:</span> Este documento contiene una descripción detallada de los requisitos del videojuego Arkanoid, organizados en requerimientos funcionales y no funcionales.</p>
+    </section>
 
-    <h2>Requerimientos No Funcionales</h2>
-    <ul>
-      <li><strong>RNF01:</strong> Rendimiento mínimo de 60 FPS.</li>
-      <li><strong>RNF02:</strong> Juego intuitivo y con instrucciones claras.</li>
-      <li><strong>RNF03:</strong> Compatibilidad con navegadores modernos y móviles.</li>
-      <li><strong>RNF04:</strong> Diseño escalable para nuevos niveles y poderes.</li>
-      <li><strong>RNF05:</strong> Seguridad en datos de usuario y prevención de trampas.</li>
-      <li><strong>RNF06:</strong> Guardado automático al inicio de cada nivel.</li>
-      <li><strong>RNF07:</strong> Portabilidad entre sistemas operativos.</li>
-      <li><strong>RNF08:</strong> Accesibilidad para personas con limitaciones visuales o auditivas.</li>
-    </ul>
+    <section>
+      <h2>2. Descripción General</h2>
+      <p><span class="highlight">2.1 Perspectiva del Producto:</span> Arkanoid es un producto independiente que puede ejecutarse en diversas plataformas (PC, navegador web, dispositivos móviles).</p>
+      <p><span class="highlight">2.2 Funcionalidad del Producto:</span> El producto incluye: control de plataforma, rebote de pelota, destrucción de bloques, puntuación, niveles progresivos, poderes especiales, y efectos de sonido.</p>
+      <p><span class="highlight">2.3 Usuarios del Producto:</span> Usuarios casuales de videojuegos, en todas las edades.</p>
+      <p><span class="highlight">2.4 Restricciones:</span> Uso de librería Pygame (si en Python) o desarrollo web (HTML5/JavaScript). Resolución adaptable a dispositivos.</p>
+      <p><span class="highlight">2.5 Suposiciones y Dependencias:</span> Se asumirá disponibilidad de teclado o controles táctiles. En caso de implementación web, se asumirá navegador compatible.</p>
+    </section>
 
-    <h2>Conclusiones y Reflexión del Proceso</h2>
-    <p>
-      Durante el proceso de levantamiento de requerimientos, se evidenció la importancia de analizar tanto las funcionalidades esenciales como los aspectos técnicos y de calidad del software. Aplicar el estándar IEEE 830 permitió estructurar los requerimientos de forma clara y comprensible.
-    </p>
-    <p>
+    <section>
+      <h2>3. Requerimientos Específicos</h2>
+      <h3>3.1 Requerimientos Funcionales</h3>
+      <ul>
+        <li><strong>RF01:</strong> Movimiento de la plataforma con teclas o controles táctiles.</li>
+        <li><strong>RF02:</strong> Lanzamiento de la bola con una tecla (barra espaciadora).</li>
+        <li><strong>RF03:</strong> Rebote de la bola contra paredes, plataforma y bloques.</li>
+        <li><strong>RF04:</strong> Detección de colisiones y eliminación de bloques.</li>
+        <li><strong>RF05:</strong> Sistema de puntuación por bloque destruido.</li>
+        <li><strong>RF06:</strong> Mínimo 5 niveles con dificultad progresiva.</li>
+        <li><strong>RF07:</strong> Poder especial: bola invisible por 2 segundos.</li>
+        <li><strong>RF08:</strong> Poder negativo: fortalecimiento de bloques por 30 segundos.</li>
+        <li><strong>RF09:</strong> Poder de reconstrucción de bloques destruidos.</li>
+        <li><strong>RF10:</strong> Caída de ítems sorpresa (poderes positivos o negativos).</li>
+        <li><strong>RF11:</strong> Sistema de vidas limitadas.</li>
+        <li><strong>RF12:</strong> Pantallas de Game Over y Victoria.</li>
+        <li><strong>RF13:</strong> Guardado de puntuaciones en ranking local o en línea.</li>
+        <li><strong>RF14:</strong> Sonidos para rebotes, destrucción, ítems y pantallas.</li>
+      </ul>
+
+      <h3>3.2 Requerimientos No Funcionales</h3>
+      <ul>
+        <li><strong>RNF01:</strong> Rendimiento mínimo de 60 FPS.</li>
+        <li><strong>RNF02:</strong> Juego intuitivo y con instrucciones claras.</li>
+        <li><strong>RNF03:</strong> Compatibilidad con navegadores modernos y móviles.</li>
+        <li><strong>RNF04:</strong> Diseño escalable para nuevos niveles y poderes.</li>
+        <li><strong>RNF05:</strong> Seguridad en datos de usuario y prevención de trampas.</li>
+        <li><strong>RNF06:</strong> Guardado automático al inicio de cada nivel.</li>
+        <li><strong>RNF07:</strong> Portabilidad entre sistemas operativos.</li>
+        <li><strong>RNF08:</strong> Accesibilidad para personas con limitaciones visuales o auditivas.</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>4. Conclusiones</h2>
+      <p>Durante el levantamiento de requerimientos, se identificaron necesidades funcionales y no funcionales esenciales para la creación de Arkanoid. Se aplicó el estándar IEEE 830, lo que facilitó una descripción clara y precisa. Los requerimientos permiten un diseño flexible, escalable y atractivo, con potencial para múltiples plataformas.</p>
+       <p>
       Además, pensar en poderes especiales, desventajas y variaciones mecánicas ayudó a mejorar el diseño creativo del videojuego, haciéndolo más desafiante y atractivo para el jugador.
     </p>
+    </section>
+    </div>
   </div>
 </body>
 </html>
-
