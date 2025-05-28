@@ -1,269 +1,610 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import {
-  Gamepad2,
-  Zap,
-  Target,
-  Layers,
-  Trophy,
-  Shield,
-  Eye,
-  RotateCcw,
-  Gift,
-  Heart,
-  Volume2,
-  Monitor,
-  Users,
-  Smartphone,
-  Code,
-  Save,
-  Accessibility,
-  FileText,
-  Lightbulb,
-  Settings,
-  CheckCircle,
-} from "lucide-react"
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Requerimientos - Videojuego Arkanoid</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap');
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-export default function ArkanoidRequirements() {
-  const functionalRequirements = [
-    { id: "RF01", text: "Movimiento de la plataforma con teclas o controles táctiles", icon: Gamepad2 },
-    { id: "RF02", text: "Lanzamiento de la bola con una tecla (barra espaciadora)", icon: Zap },
-    { id: "RF03", text: "Rebote de la bola contra paredes, plataforma y bloques", icon: Target },
-    { id: "RF04", text: "Detección de colisiones y eliminación de bloques", icon: Layers },
-    { id: "RF05", text: "Sistema de puntuación por bloque destruido", icon: Trophy },
-    { id: "RF06", text: "Mínimo 5 niveles con dificultad progresiva", icon: Shield },
-    { id: "RF07", text: "Poder especial: bola invisible por 2 segundos", icon: Eye },
-    { id: "RF08", text: "Poder negativo: fortalecimiento de bloques por 30 segundos", icon: Shield },
-    { id: "RF09", text: "Poder de reconstrucción de bloques destruidos", icon: RotateCcw },
-    { id: "RF10", text: "Caída de ítems sorpresa (poderes positivos o negativos)", icon: Gift },
-    { id: "RF11", text: "Sistema de vidas limitadas", icon: Heart },
-    { id: "RF12", text: "Pantallas de Game Over y Victoria", icon: Monitor },
-    { id: "RF13", text: "Guardado de puntuaciones en ranking local o en línea", icon: Trophy },
-    { id: "RF14", text: "Sonidos para rebotes, destrucción, ítems y pantallas", icon: Volume2 },
-  ]
+        body {
+            background: #000;
+            color: #fff;
+            font-family: 'Orbitron', monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-  const nonFunctionalRequirements = [
-    { id: "RNF01", text: "Rendimiento mínimo de 60 FPS", icon: Monitor },
-    { id: "RNF02", text: "Juego intuitivo y con instrucciones claras", icon: Users },
-    { id: "RNF03", text: "Compatibilidad con navegadores modernos y móviles", icon: Smartphone },
-    { id: "RNF04", text: "Diseño escalable para nuevos niveles y poderes", icon: Code },
-    { id: "RNF05", text: "Seguridad en datos de usuario y prevención de trampas", icon: Shield },
-    { id: "RNF06", text: "Guardado automático al inicio de cada nivel", icon: Save },
-    { id: "RNF07", text: "Portabilidad entre sistemas operativos", icon: Settings },
-    { id: "RNF08", text: "Accesibilidad para personas con limitaciones visuales o auditivas", icon: Accessibility },
-  ]
+        /* Animated background */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 20% 80%, rgba(255, 0, 128, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 80% 20%, rgba(0, 255, 225, 0.15) 0%, transparent 50%),
+                        radial-gradient(circle at 40% 40%, rgba(128, 0, 255, 0.1) 0%, transparent 50%);
+            z-index: -1;
+        }
 
-  return (
-    <div className="min-h-screen bg-black text-white">
-      {/* Animated background */}
-      <div className="fixed inset-0 bg-gradient-to-br from-purple-900/20 via-black to-cyan-900/20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(255,0,128,0.1),transparent_50%)]"></div>
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(0,255,225,0.1),transparent_50%)]"></div>
-      </div>
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
 
-      <div className="relative z-10 container mx-auto px-4 py-8 max-w-6xl">
-        {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-pink-500 via-purple-500 to-cyan-400 bg-clip-text text-transparent mb-4 font-mono">
-            ARKANOID
-          </h1>
-          <div className="text-xl md:text-2xl text-cyan-400 font-mono mb-2">{">>> REQUERIMIENTOS DEL SISTEMA <<<"}</div>
-          <div className="flex justify-center items-center gap-2 text-pink-400">
-            <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
-            <span className="text-sm font-mono">ARCADE GAME SPECIFICATIONS</span>
-            <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse"></div>
-          </div>
+        /* Header */
+        .header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        .main-title {
+            font-size: 4rem;
+            font-weight: 900;
+            background: linear-gradient(45deg, #ff0080, #8000ff, #00ffe1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(255, 0, 128, 0.5);
+        }
+
+        .subtitle {
+            font-size: 1.5rem;
+            color: #00ffe1;
+            margin-bottom: 0.5rem;
+        }
+
+        .tagline {
+            color: #ff0080;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .pulse-dot {
+            width: 8px;
+            height: 8px;
+            background: #ff0080;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Cards */
+        .card {
+            background: rgba(26, 26, 26, 0.8);
+            border: 1px solid rgba(0, 255, 225, 0.3);
+            border-radius: 15px;
+            margin-bottom: 2rem;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 8px 32px rgba(0, 255, 225, 0.1);
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid rgba(0, 255, 225, 0.3);
+            background: rgba(0, 255, 225, 0.05);
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            color: #00ffe1;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-content {
+            padding: 1.5rem;
+        }
+
+        /* Introduction grid */
+        .intro-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .intro-item {
+            background: rgba(40, 40, 40, 0.5);
+            padding: 1rem;
+            border-radius: 10px;
+            border-left: 4px solid #ff0080;
+        }
+
+        .badge {
+            display: inline-block;
+            background: rgba(255, 0, 128, 0.2);
+            color: #ff0080;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            border: 1px solid #ff0080;
+        }
+
+        /* Requirements grid */
+        .requirements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1rem;
+        }
+
+        .requirement-card {
+            background: rgba(40, 40, 40, 0.6);
+            border: 1px solid rgba(0, 255, 225, 0.2);
+            border-radius: 10px;
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .requirement-card:hover {
+            border-color: #00ffe1;
+            box-shadow: 0 5px 20px rgba(0, 255, 225, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .requirement-card.functional {
+            border-color: rgba(0, 255, 225, 0.3);
+        }
+
+        .requirement-card.functional:hover {
+            border-color: #00ffe1;
+            box-shadow: 0 5px 20px rgba(0, 255, 225, 0.3);
+        }
+
+        .requirement-card.non-functional {
+            border-color: rgba(255, 0, 128, 0.3);
+        }
+
+        .requirement-card.non-functional:hover {
+            border-color: #ff0080;
+            box-shadow: 0 5px 20px rgba(255, 0, 128, 0.3);
+        }
+
+        .req-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .req-icon {
+            width: 40px;
+            height: 40px;
+            background: rgba(0, 255, 225, 0.2);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .req-icon.functional {
+            background: rgba(0, 255, 225, 0.2);
+            color: #00ffe1;
+        }
+
+        .req-icon.non-functional {
+            background: rgba(255, 0, 128, 0.2);
+            color: #ff0080;
+        }
+
+        .req-id {
+            background: rgba(0, 255, 225, 0.2);
+            color: #00ffe1;
+            padding: 0.2rem 0.6rem;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            border: 1px solid #00ffe1;
+        }
+
+        .req-id.non-functional {
+            background: rgba(255, 0, 128, 0.2);
+            color: #ff0080;
+            border-color: #ff0080;
+        }
+
+        .req-text {
+            color: #ccc;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* General description */
+        .general-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .general-item {
+            background: rgba(128, 0, 255, 0.1);
+            border: 1px solid rgba(128, 0, 255, 0.3);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .general-title {
+            color: #8000ff;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Conclusions */
+        .conclusions {
+            background: rgba(0, 255, 128, 0.05);
+            border: 1px solid rgba(0, 255, 128, 0.3);
+        }
+
+        .conclusions .card-title {
+            color: #00ff80;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .footer-dots {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 1rem;
+        }
+
+        .footer-dot {
+            width: 4px;
+            height: 4px;
+            background: #00ff80;
+            border-radius: 50%;
+            animation: pulse 1.5s infinite;
+        }
+
+        .footer-dot:nth-child(2) { animation-delay: 0.3s; }
+        .footer-dot:nth-child(3) { animation-delay: 0.6s; }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .main-title {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .container {
+                padding: 10px;
+            }
+            
+            .requirements-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-animated"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="main-title">ARKANOID</h1>
+            <div class="subtitle">>>> REQUERIMIENTOS DEL SISTEMA <<<</div>
+            <div class="tagline">
+                <div class="pulse-dot"></div>
+                <span>ARCADE GAME SPECIFICATIONS</span>
+                <div class="pulse-dot"></div>
+            </div>
         </div>
 
-        {/* Introduction Section */}
-        <Card className="mb-8 bg-gray-900/50 border-cyan-400/30 backdrop-blur-sm">
-          <CardHeader className="border-b border-cyan-400/30">
-            <CardTitle className="flex items-center gap-3 text-cyan-400">
-              <FileText className="w-6 h-6" />
-              1. INTRODUCCIÓN
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6 space-y-4">
-            <div className="grid md:grid-cols-2 gap-4">
-              <div className="space-y-3">
-                <div>
-                  <Badge variant="outline" className="border-pink-400 text-pink-400 mb-2">
-                    1.1 PROPÓSITO
-                  </Badge>
-                  <p className="text-sm text-gray-300">
-                    Este documento define los requerimientos funcionales y no funcionales del videojuego "Arkanoid", un
-                    juego de tipo arcade basado en romper bloques.
-                  </p>
-                </div>
-                <div>
-                  <Badge variant="outline" className="border-pink-400 text-pink-400 mb-2">
-                    1.2 ALCANCE
-                  </Badge>
-                  <p className="text-sm text-gray-300">
-                    Incluirá niveles progresivos, poderes especiales, sistema de puntuación, efectos de sonido, y
-                    pantallas de Game Over/Victoria.
-                  </p>
-                </div>
-              </div>
-              <div className="space-y-3">
-                <div>
-                  <Badge variant="outline" className="border-pink-400 text-pink-400 mb-2">
-                    1.3 DEFINICIONES
-                  </Badge>
-                  <p className="text-sm text-gray-300">
-                    RF: Requerimiento Funcional, RNF: Requerimiento No Funcional, ERS: Especificación de Requisitos del
-                    Software.
-                  </p>
-                </div>
-                <div>
-                  <Badge variant="outline" className="border-pink-400 text-pink-400 mb-2">
-                    1.4 REFERENCIAS
-                  </Badge>
-                  <p className="text-sm text-gray-300">
-                    IEEE Std 830-1998 – Recomendado para Especificación de Requisitos de Software.
-                  </p>
-                </div>
-              </div>
+        <!-- Introduction -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    📄 1. INTRODUCCIÓN
+                </h2>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* General Description Section */}
-        <Card className="mb-8 bg-gray-900/50 border-purple-400/30 backdrop-blur-sm">
-          <CardHeader className="border-b border-purple-400/30">
-            <CardTitle className="flex items-center gap-3 text-purple-400">
-              <Lightbulb className="w-6 h-6" />
-              2. DESCRIPCIÓN GENERAL
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-purple-400/20">
-                <h4 className="text-purple-400 font-semibold mb-2">2.1 PERSPECTIVA</h4>
-                <p className="text-sm text-gray-300">
-                  Producto independiente ejecutable en diversas plataformas (PC, web, móviles).
-                </p>
-              </div>
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-purple-400/20">
-                <h4 className="text-purple-400 font-semibold mb-2">2.2 FUNCIONALIDAD</h4>
-                <p className="text-sm text-gray-300">
-                  Control de plataforma, rebote de pelota, destrucción de bloques, puntuación y poderes especiales.
-                </p>
-              </div>
-              <div className="bg-gray-800/50 p-4 rounded-lg border border-purple-400/20">
-                <h4 className="text-purple-400 font-semibold mb-2">2.3 USUARIOS</h4>
-                <p className="text-sm text-gray-300">Usuarios casuales de videojuegos en todas las edades.</p>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Functional Requirements */}
-        <Card className="mb-8 bg-gray-900/50 border-cyan-400/30 backdrop-blur-sm">
-          <CardHeader className="border-b border-cyan-400/30">
-            <CardTitle className="flex items-center gap-3 text-cyan-400">
-              <Settings className="w-6 h-6" />
-              3.1 REQUERIMIENTOS FUNCIONALES
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {functionalRequirements.map((req) => {
-                const IconComponent = req.icon
-                return (
-                  <div
-                    key={req.id}
-                    className="bg-gray-800/50 p-4 rounded-lg border border-cyan-400/20 hover:border-cyan-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-cyan-400/20"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="bg-cyan-400/20 p-2 rounded-lg">
-                        <IconComponent className="w-5 h-5 text-cyan-400" />
-                      </div>
-                      <div className="flex-1">
-                        <Badge variant="outline" className="border-cyan-400 text-cyan-400 mb-2 text-xs">
-                          {req.id}
-                        </Badge>
-                        <p className="text-sm text-gray-300 leading-relaxed">{req.text}</p>
-                      </div>
+            <div class="card-content">
+                <div class="intro-grid">
+                    <div class="intro-item">
+                        <div class="badge">1.1 PROPÓSITO</div>
+                        <p>Este documento define los requerimientos funcionales y no funcionales del videojuego "Arkanoid", un juego de tipo arcade basado en romper bloques.</p>
                     </div>
-                  </div>
-                )
-              })}
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Non-Functional Requirements */}
-        <Card className="mb-8 bg-gray-900/50 border-pink-400/30 backdrop-blur-sm">
-          <CardHeader className="border-b border-pink-400/30">
-            <CardTitle className="flex items-center gap-3 text-pink-400">
-              <Shield className="w-6 h-6" />
-              3.2 REQUERIMIENTOS NO FUNCIONALES
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {nonFunctionalRequirements.map((req) => {
-                const IconComponent = req.icon
-                return (
-                  <div
-                    key={req.id}
-                    className="bg-gray-800/50 p-4 rounded-lg border border-pink-400/20 hover:border-pink-400/50 transition-all duration-300 hover:shadow-lg hover:shadow-pink-400/20"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="bg-pink-400/20 p-2 rounded-lg">
-                        <IconComponent className="w-5 h-5 text-pink-400" />
-                      </div>
-                      <div className="flex-1">
-                        <Badge variant="outline" className="border-pink-400 text-pink-400 mb-2 text-xs">
-                          {req.id}
-                        </Badge>
-                        <p className="text-sm text-gray-300 leading-relaxed">{req.text}</p>
-                      </div>
+                    <div class="intro-item">
+                        <div class="badge">1.2 ALCANCE</div>
+                        <p>Incluirá niveles progresivos, poderes especiales, sistema de puntuación, efectos de sonido, y pantallas de Game Over/Victoria.</p>
                     </div>
-                  </div>
-                )
-              })}
+                    <div class="intro-item">
+                        <div class="badge">1.3 DEFINICIONES</div>
+                        <p>RF: Requerimiento Funcional, RNF: Requerimiento No Funcional, ERS: Especificación de Requisitos del Software.</p>
+                    </div>
+                    <div class="intro-item">
+                        <div class="badge">1.4 REFERENCIAS</div>
+                        <p>IEEE Std 830-1998 – Recomendado para Especificación de Requisitos de Software.</p>
+                    </div>
+                </div>
             </div>
-          </CardContent>
-        </Card>
-
-        {/* Conclusions */}
-        <Card className="bg-gray-900/50 border-green-400/30 backdrop-blur-sm">
-          <CardHeader className="border-b border-green-400/30">
-            <CardTitle className="flex items-center gap-3 text-green-400">
-              <CheckCircle className="w-6 h-6" />
-              4. CONCLUSIONES
-            </CardTitle>
-          </CardHeader>
-          <CardContent className="p-6">
-            <div className="space-y-4">
-              <p className="text-gray-300 leading-relaxed">
-                Durante el levantamiento de requerimientos, se identificaron necesidades funcionales y no funcionales
-                esenciales para la creación de Arkanoid. Se aplicó el estándar IEEE 830, lo que facilitó una descripción
-                clara y precisa.
-              </p>
-              <p className="text-gray-300 leading-relaxed">
-                Los requerimientos permiten un diseño flexible, escalable y atractivo, con potencial para múltiples
-                plataformas. Además, pensar en poderes especiales, desventajas y variaciones mecánicas ayudó a mejorar
-                el diseño creativo del videojuego, haciéndolo más desafiante y atractivo para el jugador.
-              </p>
-            </div>
-          </CardContent>
-        </Card>
-
-        {/* Footer */}
-        <div className="text-center mt-12 pt-8 border-t border-gray-700">
-          <div className="text-gray-500 text-sm font-mono">
-            {"[SYSTEM READY]"} • {"[GAME DESIGN COMPLETE]"} • {"[PRESS START TO CONTINUE]"}
-          </div>
-          <div className="flex justify-center items-center gap-2 mt-2">
-            <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse"></div>
-            <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse delay-100"></div>
-            <div className="w-1 h-1 bg-green-400 rounded-full animate-pulse delay-200"></div>
-          </div>
         </div>
-      </div>
+
+        <!-- General Description -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    💡 2. DESCRIPCIÓN GENERAL
+                </h2>
+            </div>
+            <div class="card-content">
+                <div class="general-grid">
+                    <div class="general-item">
+                        <div class="general-title">2.1 PERSPECTIVA</div>
+                        <p>Producto independiente ejecutable en diversas plataformas (PC, web, móviles).</p>
+                    </div>
+                    <div class="general-item">
+                        <div class="general-title">2.2 FUNCIONALIDAD</div>
+                        <p>Control de plataforma, rebote de pelota, destrucción de bloques, puntuación y poderes especiales.</p>
+                    </div>
+                    <div class="general-item">
+                        <div class="general-title">2.3 USUARIOS</div>
+                        <p>Usuarios casuales de videojuegos en todas las edades.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Functional Requirements -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    ⚙️ 3.1 REQUERIMIENTOS FUNCIONALES
+                </h2>
+            </div>
+            <div class="card-content">
+                <div class="requirements-grid">
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">🎮</div>
+                            <div class="req-id">RF01</div>
+                        </div>
+                        <div class="req-text">Movimiento de la plataforma con teclas o controles táctiles.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">⚡</div>
+                            <div class="req-id">RF02</div>
+                        </div>
+                        <div class="req-text">Lanzamiento de la bola con una tecla (barra espaciadora).</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">🎯</div>
+                            <div class="req-id">RF03</div>
+                        </div>
+                        <div class="req-text">Rebote de la bola contra paredes, plataforma y bloques.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">💥</div>
+                            <div class="req-id">RF04</div>
+                        </div>
+                        <div class="req-text">Detección de colisiones y eliminación de bloques.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">🏆</div>
+                            <div class="req-id">RF05</div>
+                        </div>
+                        <div class="req-text">Sistema de puntuación por bloque destruido.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">📊</div>
+                            <div class="req-id">RF06</div>
+                        </div>
+                        <div class="req-text">Mínimo 5 niveles con dificultad progresiva.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">👁️</div>
+                            <div class="req-id">RF07</div>
+                        </div>
+                        <div class="req-text">Poder especial: bola invisible por 2 segundos.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">🛡️</div>
+                            <div class="req-id">RF08</div>
+                        </div>
+                        <div class="req-text">Poder negativo: fortalecimiento de bloques por 30 segundos.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">🔄</div>
+                            <div class="req-id">RF09</div>
+                        </div>
+                        <div class="req-text">Poder de reconstrucción de bloques destruidos.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">🎁</div>
+                            <div class="req-id">RF10</div>
+                        </div>
+                        <div class="req-text">Caída de ítems sorpresa (poderes positivos o negativos).</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">❤️</div>
+                            <div class="req-id">RF11</div>
+                        </div>
+                        <div class="req-text">Sistema de vidas limitadas.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">📺</div>
+                            <div class="req-id">RF12</div>
+                        </div>
+                        <div class="req-text">Pantallas de Game Over y Victoria.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">💾</div>
+                            <div class="req-id">RF13</div>
+                        </div>
+                        <div class="req-text">Guardado de puntuaciones en ranking local o en línea.</div>
+                    </div>
+                    
+                    <div class="requirement-card functional">
+                        <div class="req-header">
+                            <div class="req-icon functional">🔊</div>
+                            <div class="req-id">RF14</div>
+                        </div>
+                        <div class="req-text">Sonidos para rebotes, destrucción, ítems y pantallas.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Non-Functional Requirements -->
+        <div class="card">
+            <div class="card-header">
+                <h2 class="card-title">
+                    🛡️ 3.2 REQUERIMIENTOS NO FUNCIONALES
+                </h2>
+            </div>
+            <div class="card-content">
+                <div class="requirements-grid">
+                    <div class="requirement-card non-functional">
+                        <div class="req-header">
+                            <div class="req-icon non-functional">⚡</div>
+                            <div class="req-id non-functional">RNF01</div>
+                        </div>
+                        <div class="req-text">Rendimiento mínimo de 60 FPS.</div>
+                    </div>
+                    
+                    <div class="requirement-card non-functional">
+                        <div class="req-header">
+                            <div class="req-icon non-functional">👥</div>
+                            <div class="req-id non-functional">RNF02</div>
+                        </div>
+                        <div class="req-text">Juego intuitivo y con instrucciones claras.</div>
+                    </div>
+                    
+                    <div class="requirement-card non-functional">
+                        <div class="req-header">
+                            <div class="req-icon non-functional">📱</div>
+                            <div class="req-id non-functional">RNF03</div>
+                        </div>
+                        <div class="req-text">Compatibilidad con navegadores modernos y móviles.</div>
+                    </div>
+                    
+                    <div class="requirement-card non-functional">
+                        <div class="req-header">
+                            <div class="req-icon non-functional">🔧</div>
+                            <div class="req-id non-functional">RNF04</div>
+                        </div>
+                        <div class="req-text">Diseño escalable para nuevos niveles y poderes.</div>
+                    </div>
+                    
+                    <div class="requirement-card non-functional">
+                        <div class="req-header">
+                            <div class="req-icon non-functional">🔒</div>
+                            <div class="req-id non-functional">RNF05</div>
+                        </div>
+                        <div class="req-text">Seguridad en datos de usuario y prevención de trampas.</div>
+                    </div>
+                    
+                    <div class="requirement-card non-functional">
+                        <div class="req-header">
+                            <div class="req-icon non-functional">💾</div>
+                            <div class="req-id non-functional">RNF06</div>
+                        </div>
+                        <div class="req-text">Guardado automático al inicio de cada nivel.</div>
+                    </div>
+                    
+                    <div class="requirement-card non-functional">
+                        <div class="req-header">
+                            <div class="req-icon non-functional">🖥️</div>
+                            <div class="req-id non-functional">RNF07</div>
+                        </div>
+                        <div class="req-text">Portabilidad entre sistemas operativos.</div>
+                    </div>
+                    
+                    <div class="requirement-card non-functional">
+                        <div class="req-header">
+                            <div class="req-icon non-functional">♿</div>
+                            <div class="req-id non-functional">RNF08</div>
+                        </div>
+                        <div class="req-text">Accesibilidad para personas con limitaciones visuales o auditivas.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Conclusions -->
+        <div class="card conclusions">
+            <div class="card-header">
+                <h2 class="card-title">
+                    ✅ 4. CONCLUSIONES
+                </h2>
+            </div>
+            <div class="card-content">
+                <p style="margin-bottom: 1rem;">
+                    Durante el levantamiento de requerimientos, se identificaron necesidades funcionales y no funcionales esenciales para la creación de Arkanoid. Se aplicó el estándar IEEE 830, lo que facilitó una descripción clara y precisa.
+                </p>
+                <p>
+                    Los requerimientos permiten un diseño flexible, escalable y atractivo, con potencial para múltiples plataformas. Además, pensar en poderes especiales, desventajas y variaciones mecánicas ayudó a mejorar el diseño creativo del videojuego, haciéndolo más desafiante y atractivo para el jugador.
+                </p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <div>[SYSTEM READY] • [GAME DESIGN COMPLETE] • [PRESS START TO CONTINUE]</div>
+            <div class="footer-dots">
+                <div class="footer-dot"></div>
+                <div class="footer-dot"></div>
+                <div class="footer-dot"></div>
+            </div>
+        </div>
     </div>
-  )
-}
+</body>
+</html>
